@@ -1,0 +1,2 @@
+%{"gen_stage": {:hex, :gen_stage, "0.4.3", "721a82a6c3de8438435ef1970d4942865afef5befb6f318055724b171860a8b4", [:mix], []},
+  "sereal": {:git, "https://github.com/Sereal/Sereal.git", "22be5963d1dd7df0eca0eaaaf8204736c4eb679f", []}}
