@@ -5,7 +5,7 @@ defmodule Listener.Decoder.Worker do
   require Logger
 
   def start_link(name) do
-    GenStage.start_link(__MODULE__, name)
+    GenStage.start_link(__MODULE__, name, name: name)
   end
 
   def init(name) do

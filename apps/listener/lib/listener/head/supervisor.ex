@@ -1,4 +1,4 @@
-defmodule Listener.Consolidator.Supervisor do
+defmodule Listener.Head.Supervisor do
   use Supervisor
 
   def start_link do
@@ -7,7 +7,7 @@ defmodule Listener.Consolidator.Supervisor do
 
   def init(:ok) do
     children= [
-      worker(Listener.Consolidator.Worker, []),
+      worker(Listener.Head.UDP, []),
     ]
     supervise(children, strategy: :one_for_one)
   end

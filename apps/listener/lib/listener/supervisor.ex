@@ -5,7 +5,7 @@ defmodule Listener.Supervisor do
   require Logger
 
   def start_link do
-    Supervisor.start_link(__MODULE__, :ok)
+    Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
   def init(:ok) do
@@ -16,7 +16,7 @@ defmodule Listener.Supervisor do
     children= [
       worker(Listener.EpochQueue.Supervisor, []),
       worker(Listener.Consolidator.Supervisor, []),
-      worker(Listener.Head.UDP, []),
+      worker(Listener.Head.Supervisor, []),
       worker(Listener.Dispatcher, []),
       worker(Listener.Decoder.Supervisor, []),
       worker(Listener.EpochTimer.Supervisor, [consolidator_callback]),
