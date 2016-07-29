@@ -1,5 +1,4 @@
 alias Experimental.GenStage
-require Listener.Dispatcher
 
 defmodule Listener.Decoder.Worker do
   use GenStage
@@ -18,6 +17,7 @@ defmodule Listener.Decoder.Worker do
   def handle_events(events, _from, name) do
     Logger.debug "#{name} received an event: #{inspect(events)}"
     #TODO: perform decoding here
+    Listener.EpochQueue.Worker.push(events)
     {:noreply, [], name}
   end
 

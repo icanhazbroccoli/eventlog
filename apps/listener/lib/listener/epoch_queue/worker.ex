@@ -7,13 +7,21 @@ defmodule Listener.EpochQueue.Worker do
     GenServer.start_link(__MODULE__, queue, name: __MODULE__)
   end
 
-  def push(event) do
-    GenServer.cast(__MODULE__, {:push, event})
+  def push(events) do
+    GenServer.cast(__MODULE__, {:push, events})
   end
 
-  def handle_cast({:push, event}, queue) do
-    {:noreply, :queue.in(event, queue)}
+  def slice_all do
+    GenServer.call(__MODULE__, :slice_all)
+  end
+
+  def handle_cast({:push, events}, queue) do
+    Logger.debug "EpochQueue received an epoch data"
+    {:noreply, :queue.from_list(:queue.to_list(queue) ++ events)}
+  end
+
+  def handle_call(:slice_all, _from, queue) do
+    {:reply, :queue.to_list(queue), :queue.new}
   end
 
 end
-
